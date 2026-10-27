@@ -3,7 +3,7 @@
 
 원본 preprocess_bench.py 의 process_hotpotqa() 와 같은 자리에 꽂히는 처리기다.
 preprocess_bench.DATASET_PROCESSORS["assembly"] 로 등록되어, 원본 실행 경로
-`python -m llm_wiki_bench.run --dataset assembly` 에서 그대로 호출된다.
+`python -m llm_wiki_bench.2_run --dataset assembly` 에서 그대로 호출된다.
 
   HotpotQA                               국회 (이 파일)
   ─────────────────────────────────────  ─────────────────────────────────────────

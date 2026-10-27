@@ -15,10 +15,10 @@ export LLM_FAST_MODEL="${LLM_FAST_MODEL:-gpt-4o-mini}"
 cd "$(dirname "$0")/.."
 
 # 2. Compile the Wiki (download -> preprocess -> ingest).
-python3 -m llm_wiki_bench.run --dataset hotpotqa --limit 500
+python3 -m llm_wiki_bench.2_run --dataset hotpotqa --limit 500
 
 # 3. Run retrieval + answer + evaluation.
-python3 -m llm_wiki_bench.run_qa --dataset hotpotqa --limit 500 --evaluate
+python3 -m llm_wiki_bench.7_run_qa --dataset hotpotqa --limit 500 --evaluate
 
 echo
 echo "Done."

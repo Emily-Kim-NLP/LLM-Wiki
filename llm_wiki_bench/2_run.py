@@ -9,15 +9,15 @@ Chains the offline wiki-construction pipeline:
 Usage:
 
     # Full pipeline
-    python -m llm_wiki_bench.run --dataset hotpotqa --limit 500
+    python -m llm_wiki_bench.2_run --dataset hotpotqa --limit 500
 
     # Skip stages
-    python -m llm_wiki_bench.run --dataset hotpotqa --only-download
-    python -m llm_wiki_bench.run --dataset hotpotqa --only-preprocess --limit 500
-    python -m llm_wiki_bench.run --dataset hotpotqa --only-ingest    --limit 500
+    python -m llm_wiki_bench.2_run --dataset hotpotqa --only-download
+    python -m llm_wiki_bench.2_run --dataset hotpotqa --only-preprocess --limit 500
+    python -m llm_wiki_bench.2_run --dataset hotpotqa --only-ingest    --limit 500
 
     # All three datasets
-    python -m llm_wiki_bench.run --all --limit 500
+    python -m llm_wiki_bench.2_run --all --limit 500
 """
 
 import argparse

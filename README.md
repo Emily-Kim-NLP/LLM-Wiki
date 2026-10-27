@@ -33,17 +33,37 @@
 
 ### 코드
 
+`llm_wiki_bench/` 의 파일 이름 앞 번호 = **시연에서 보여 주는 순서** (실행 흐름과 같다).
+
+| 번호 | 파일 | 단계 | 하는 일 |
+|---|---|---|---|
+| 1 | `1_preprocess_assembly.py` | 1 전처리 | 국회 CSV 4개 → Markdown 원문 45개 (새 코드) |
+| 2 | `2_run.py` | 1·2 | 전처리·구축 실행 명령 (`--only-preprocess`, `--only-ingest`) |
+| 3 | `3_bench_config.py` | 2 구축 | 경로·모델·Wiki 폴더 설정 |
+| 4 | `4_bench_ingest.py` | 2 구축 | Step 1 페이지 선택 → Step 2 페이지 작성, 검사·수선 |
+| 5 | `5_llm_client.py` | 2·3 | LLM 호출 (gpt-6-luna) |
+| 6 | `6_bench_error_book.py` | 2 구축 | Error Book: 기록 → 규칙 주입 → 닫기 |
+| 7 | `7_run_qa.py` | 3 질문 | 질문 실행 명령, 답변 작성 |
+| 8 | `8_wiki_retriever.py` | 3 질문 | 도구 `wiki_search` · `wiki_read` |
+| 9 | `9_wiki_agent.py` | 3 질문 | 도구를 골라 부르는 검색 에이전트 |
+| 10 | `10_evaluate.py` | 4 평가 | EM / F1 |
+| — | `preprocess_bench.py` | 1 | 원본의 데이터셋 등록표 (2 → 여기 → 1 을 부른다) |
+| — | `download_datasets.py` | — | 원본의 HotpotQA 등 다운로드. 이 시연은 `--skip-download` 로 쓰지 않는다 |
+
+숫자로 시작하는 이름은 `import` 할 수 없어서, `__init__.py` 가 원본 코드의 `import bench_config` 같은 문장을 번호 붙은 파일로 연결한다. 원본 코드의 import 문은 그대로다.
+
+
 | 경로 | 내용 |
 |---|---|
 | `llm_wiki_bench/` | **원본 코드**. 바꾼 곳은 `# [국회 시연]` 주석 (5절) |
-| `llm_wiki_bench/preprocess_assembly.py` | 파이프라인의 유일한 새 코드. 국회 CSV 처리기 (원본 `process_hotpotqa` 와 같은 자리) |
+| `llm_wiki_bench/1_preprocess_assembly.py` | 파이프라인의 유일한 새 코드. 국회 CSV 처리기 (원본 `process_hotpotqa` 와 같은 자리) |
 | `examples/run_assembly.sh` | 1~4 단계 한 번에 실행. 원본 `examples/run_hotpotqa.sh` 를 국회용으로 바꾼 것 |
 | `configs/` | 원본 설정 (페이지 유형, Wiki 스키마) |
 | `scripts/` | Wiki 를 웹사이트로 만들어 GitHub Pages 에 올리는 스크립트 (단계 5). hyeongrae-kim/LLM-Wiki 에서 가져옴 |
 
 ### 출력 (실행하면 원본 코드가 저장소 루트에 만든다)
 
-출력 위치는 원본 코드가 정한다 (`bench_config.set_dataset()`, `run_qa.py`, 원본 README "Quickstart").
+출력 위치는 원본 코드가 정한다 (`bench_config.set_dataset()`, `7_run_qa.py`, 원본 README "Quickstart").
 원본 `.gitignore` 는 이 폴더들을 모두 git 에서 제외하고, 원본 `examples/` 에는 실행 스크립트만 있다.
 이 저장소는 **처음 받은 상태에는 출력이 없고**, 실행하면 아래 위치에 생긴다.
 
@@ -152,14 +172,14 @@ mkdir -p data && cp -r examples/demo/outputs/data/assembly data/
 ### 단계 1. 전처리 — CSV → Markdown 원문 (LLM 없음, 1초)
 
 ```bash
-.venv/bin/python -m llm_wiki_bench.run --dataset assembly --skip-download --only-preprocess
+.venv/bin/python -m llm_wiki_bench.2_run --dataset assembly --skip-download --only-preprocess
 ```
 
 | 순서 | 코드 | 하는 일 |
 |---|---|---|
-| 1-1 | `run.py` `main()` → `step_preprocess()` | 데이터셋 이름으로 처리기를 고른다 |
+| 1-1 | `2_run.py` `main()` → `step_preprocess()` | 데이터셋 이름으로 처리기를 고른다 |
 | 1-2 | `preprocess_bench.py` `DATASET_PROCESSORS["assembly"]` | 원본의 데이터셋 등록 표. 여기에 국회 처리기를 꽂았다 |
-| 1-3 | `preprocess_assembly.py` `process_assembly()` | 질문의 `context_bills`(AI 기본법 대안)에서 출발해 연결 키로 문서를 고른다 |
+| 1-3 | `1_preprocess_assembly.py` `process_assembly()` | 질문의 `context_bills`(AI 기본법 대안)에서 출발해 연결 키로 문서를 고른다 |
 | 1-4 | `bill_sections()` `rollcall_sections()` `minute_sections()` `member_sections()` | CSV 열과 JSON 셀을 "한국어 라벨(원래 열 이름): 값" 으로 펼친다 |
 | 1-5 | `write_doc()` → `split_parts()` | 문서마다 `## 출처`(파일·레코드·줄)를 붙이고, 8,000자가 넘으면 part 로 나눈다 |
 
@@ -186,10 +206,10 @@ mkdir -p data && cp -r examples/demo/outputs/data/assembly data/
 
 ```bash
 rm -rf wiki_output/assembly .wiki-cache-bench-assembly.json   # 처음부터 다시 만들 때
-.venv/bin/python -m llm_wiki_bench.run --dataset assembly --skip-download --only-ingest
+.venv/bin/python -m llm_wiki_bench.2_run --dataset assembly --skip-download --only-ingest
 ```
 
-`run.py` `step_ingest()` → `bench_ingest.py` `ingest_batch()` 가 원문을 3개씩 묶어 처리한다 (논문 Algorithm 1).
+`2_run.py` `step_ingest()` → `4_bench_ingest.py` `ingest_batch()` 가 원문을 3개씩 묶어 처리한다 (논문 Algorithm 1).
 
 | 순서 | 코드 | 논문 이름 | 하는 일 |
 |---|---|---|---|
@@ -203,7 +223,7 @@ rm -rf wiki_output/assembly .wiki-cache-bench-assembly.json   # 처음부터 다
 | 2-7 | `periodic_maintenance()` | LLMPERIODICFIX (2층) | 일정 문서 수마다 LLM 이 구조·내용을 고친다 |
 | 2-8 | `finalize_wiki()` | — | 코드 수선 ↔ LLM 수선 3회 → 최종 점검 → Error Book 출력 |
 
-**Error Book** (`bench_error_book.py`, 논문 3.3절): 발견(`record_lint_issues`) → 원인 기록 → 규칙 만들기 → 다음 배치 프롬프트에 주입(`get_active_constraints`, 화면에 `📔 Error Book 규칙 주입` 출력) → 2회 연속 안 나오면 닫기.
+**Error Book** (`6_bench_error_book.py`, 논문 3.3절): 발견(`record_lint_issues`) → 원인 기록 → 규칙 만들기 → 다음 배치 프롬프트에 주입(`get_active_constraints`, 화면에 `📔 Error Book 규칙 주입` 출력) → 2회 연속 안 나오면 닫기.
 
 출력 `wiki_output/assembly/wiki/`:
 
@@ -225,18 +245,18 @@ wiki/
 ### 단계 3·4. 질문 → 검색 에이전트 → 답변 → 평가 (LLM, 약 30초)
 
 ```bash
-.venv/bin/python -m llm_wiki_bench.run_qa --dataset assembly --evaluate --verbose
+.venv/bin/python -m llm_wiki_bench.7_run_qa --dataset assembly --evaluate --verbose
 ```
 
 | 순서 | 코드 | 하는 일 |
 |---|---|---|
-| 3-1 | `run_qa.py` `main()` | `data/assembly/qa_pairs.jsonl` 의 질문을 하나씩 처리 |
-| 3-2 | `wiki_retriever.py` `WikiRetriever.load()` | Wiki 페이지·목차를 읽고 BM25 색인을 만든다 |
-| 3-3 | `wiki_agent.py` `WikiAgent.retrieve()` | 모델이 도구를 골라 부르며 Wiki 를 돌아다닌다 (최대 15회, 한 번에 3개, 검색 결과 5개). 화면의 `[agent] [n/15]` 줄이 실제 도구 호출이다 |
+| 3-1 | `7_run_qa.py` `main()` | `data/assembly/qa_pairs.jsonl` 의 질문을 하나씩 처리 |
+| 3-2 | `8_wiki_retriever.py` `WikiRetriever.load()` | Wiki 페이지·목차를 읽고 BM25 색인을 만든다 |
+| 3-3 | `9_wiki_agent.py` `WikiAgent.retrieve()` | 모델이 도구를 골라 부르며 Wiki 를 돌아다닌다 (최대 15회, 한 번에 3개, 검색 결과 5개). 화면의 `[agent] [n/15]` 줄이 실제 도구 호출이다 |
 | 3-4 | `WikiRetriever.search()` | 도구 `wiki_search`: 페이지 이름·태그·본문으로 검색. 페이지 목록만 돌려준다 |
 | 3-5 | `WikiRetriever.read()` | 도구 `wiki_read`: 페이지 본문을 읽는다. 본문 안 `[[링크]]` 를 보고 다음 페이지를 고른다 |
-| 3-6 | `run_qa.py` `_format_context()` → `_answer()` | 읽은 페이지만 근거로 짧은 답을 만든다 |
-| 4 | `evaluate.py` `evaluate()` | 정답과 비교해 EM / F1 |
+| 3-6 | `7_run_qa.py` `_format_context()` → `_answer()` | 읽은 페이지만 근거로 짧은 답을 만든다 |
+| 4 | `10_evaluate.py` `evaluate()` | 정답과 비교해 EM / F1 |
 
 **답 확인** (영상에서):
 
@@ -326,15 +346,16 @@ Q3 에서 에이전트는 회의록 요약 페이지에 조인철만 있는 것�
 
 | 파일 | 바꾼 내용 | 이유 |
 |---|---|---|
-| `preprocess_assembly.py` (새 파일) | 국회 CSV 처리기 | 원본 HotpotQA 처리기와 같은 형식 |
+| `1_preprocess_assembly.py` (새 파일) | 국회 CSV 처리기 | 원본 HotpotQA 처리기와 같은 형식 |
 | `preprocess_bench.py` | `DATASET_PROCESSORS` 에 `assembly` 등록 | 원본의 데이터셋 추가 지점 |
-| `run.py`, `run_qa.py`, `evaluate.py` | `--dataset` 선택지에 `assembly` | |
-| `llm_client.py` | gpt-6 같은 추론 모델이면 `max_completion_tokens`, `reasoning_effort` 사용 | gpt-6-luna 는 `max_tokens` 를 거부한다 |
-| `wiki_retriever.py` | 한글 2글자 단위 색인, `.md` 없는 `[[링크]]` 경로 읽기 | 원본은 영문·숫자만 색인해 한글 검색 결과가 0건 |
+| `2_run.py`, `7_run_qa.py`, `10_evaluate.py` | `--dataset` 선택지에 `assembly` | |
+| `5_llm_client.py` | gpt-6 같은 추론 모델이면 `max_completion_tokens`, `reasoning_effort` 사용 | gpt-6-luna 는 `max_tokens` 를 거부한다 |
+| `8_wiki_retriever.py` | 한글 2글자 단위 색인, `.md` 없는 `[[링크]]` 경로 읽기 | 원본은 영문·숫자만 색인해 한글 검색 결과가 0건 |
 | `preprocess_bench.py` | 출력 경로를 저장소 루트로 | **원본 버그**: 전처리 출력과 Wiki 구축 입력 경로가 달라 이어지지 않음 |
-| `run.py` | `args.only` 설정 | **원본 버그**: `--only-preprocess` 를 줘도 모든 단계가 실행됨 |
-| `bench_ingest.py` | 배치 경로에도 Error Book 규칙 주입 | **원본 불일치**: 규칙 주입이 단건 경로에만 있었음 |
-| `bench_config.py` | `DIR_CHANGES` 항목이 객체가 아니면 건너뜀 | **원본 버그**: LLM 출력 형식에 따라 구축 전체가 멈춤 (실제로 발생) |
+| `2_run.py` | `args.only` 설정 | **원본 버그**: `--only-preprocess` 를 줘도 모든 단계가 실행됨 |
+| `4_bench_ingest.py` | 배치 경로에도 Error Book 규칙 주입 | **원본 불일치**: 규칙 주입이 단건 경로에만 있었음 |
+| `3_bench_config.py` | `DIR_CHANGES` 항목이 객체가 아니면 건너뜀 | **원본 버그**: LLM 출력 형식에 따라 구축 전체가 멈춤 (실제로 발생) |
+| `__init__.py`, 파일 이름 | 시연 순서대로 번호(`1_` ~ `10_`)를 붙이고, 원래 이름으로 import 되게 연결 | 시연 영상에서 코드를 순서대로 보여 주기 위함. import 문은 원본 그대로 |
 | `.gitignore` | `.env` 제외, `examples/demo/outputs/` 의 결과 예시는 포함 | API 키 보호. 원본 규칙(`raw/`, `results/` 등 제외)이 하위 폴더에도 걸려 예시가 빠지므로 예외를 둠 |
 
 프롬프트, Wiki 구조, 에이전트, Error Book 규칙·수선, 답변·평가 방식은 원본 그대로다.

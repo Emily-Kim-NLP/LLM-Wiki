@@ -16,14 +16,14 @@ export LLM_REASONING_EFFORT="${LLM_REASONING_EFFORT:-low}"
 PY=${PY:-.venv/bin/python}
 
 # 1. 전처리: data/*.csv → raw/assembly/articles/*.md, data/assembly/qa_pairs.jsonl
-$PY -m llm_wiki_bench.run --dataset assembly --skip-download --only-preprocess
+$PY -m llm_wiki_bench.2_run --dataset assembly --skip-download --only-preprocess
 
 # 2. Wiki 구축 + Error Book: → wiki_output/assembly/wiki/
 rm -rf wiki_output/assembly .wiki-cache-bench-assembly.json     # 처음부터 다시 구축
-$PY -m llm_wiki_bench.run --dataset assembly --skip-download --only-ingest
+$PY -m llm_wiki_bench.2_run --dataset assembly --skip-download --only-ingest
 
 # 3~4. 검색 에이전트 + 답변 + 평가: → results/assembly/
-$PY -m llm_wiki_bench.run_qa --dataset assembly --evaluate --verbose
+$PY -m llm_wiki_bench.7_run_qa --dataset assembly --evaluate --verbose
 
 echo
 echo "Done."

@@ -6,7 +6,7 @@ EM/F1 and, when applicable, hop-wise / type-wise F1 breakdowns.
 
 Usage:
 
-    python -m llm_wiki_bench.evaluate \\
+    python -m llm_wiki_bench.10_evaluate \\
         --dataset hotpotqa \\
         --predictions results/hotpotqa/predictions.jsonl
 """
@@ -72,7 +72,7 @@ def _load_qa_pairs(dataset: str) -> list[dict]:
     path = DATA_DIR / dataset / "qa_pairs.jsonl"
     if not path.exists():
         sys.exit(f"❌ QA pairs not found: {path}\n   "
-                 f"Run: python -m llm_wiki_bench.run --dataset {dataset} --only-preprocess")
+                 f"Run: python -m llm_wiki_bench.2_run --dataset {dataset} --only-preprocess")
     with open(path, encoding="utf-8") as f:
         return [json.loads(line) for line in f if line.strip()]
 
