@@ -38,7 +38,9 @@ else
 fi
 
 if ! gh api "repos/$slug/pages" >/dev/null 2>&1; then
-  echo '{"source":{"branch":"gh-pages","path":"/"}}' | gh api -X POST "repos/$slug/pages" --input - >/dev/null
+  # gh-pages 를 처음 올리면 GitHub 가 Pages 를 스스로 켜기도 한다 (그때는 409 already enabled)
+  echo '{"source":{"branch":"gh-pages","path":"/"}}' | gh api -X POST "repos/$slug/pages" --input - >/dev/null 2>&1 \
+    || gh api "repos/$slug/pages" >/dev/null
   echo "📄 GitHub Pages 켬 (source: gh-pages)"
 fi
 echo "🌐 https://${slug%%/*}.github.io/${slug##*/}/   (예: …/bills/)"

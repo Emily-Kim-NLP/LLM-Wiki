@@ -269,6 +269,9 @@ scripts/quartz.sh serve           # 로컬 미리보기 http://localhost:8080  (
 scripts/deploy_pages.sh           # 배포 → https://<계정>.github.io/<저장소>/bills/
 ```
 
+배포된 사이트: **https://emily-kim-nlp.github.io/LLM-Wiki/** (저장소 https://github.com/Emily-Kim-NLP/LLM-Wiki, `gh-pages` 브랜치).
+`examples/demo/outputs/` 의 예시 Wiki 로 만든 것이다. Wiki 를 새로 만든 뒤 다시 배포하면 루트 `wiki_output/` 의 새 Wiki 로 바뀐다.
+
 배포 사이트에서 보여 줄 곳:
 - `bills/` → `Artificial_Intelligence_Basic_Act_Bill_2206772`: 한 줄 요약, Key Facts, Related Pages(표결·회의록·의원 링크), Related Sources(digest)
 - `minutes/Plenary_Minutes_T52677` → `sources/articles/회의록-t52677-…`: 요약에는 조인철만, 원문 사본에는 위원장대리 두 명 (Q3 이야기)
