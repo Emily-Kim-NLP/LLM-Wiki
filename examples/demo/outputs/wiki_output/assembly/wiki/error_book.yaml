@@ -1,0 +1,51 @@
+errors:
+- id: E01
+  category: missing_sections
+  description: 'Knowledge page missing required sections: Key Facts / Related Pages
+    / Related Sources'
+  constraint: 'Every knowledge page must include ## Key Facts (≥2 facts), ## Related
+    Pages, and ## Related Sources sections'
+  status: open
+  count: 2
+  samples:
+  - name: 'bills/Digital_Inclusion_Act_Alternative_Bill_2206761: missing [Key Facts,
+      Related Pages]'
+    fixed: false
+  - name: 'rollcalls/Roll_Call_1320: missing [Key Facts, Related Pages]'
+    fixed: false
+  discovered_at: '2026-10-27'
+  last_seen: '2026-10-27'
+  pass_count: 0
+  needs_llm_fix: true
+- id: E02
+  category: broken_link
+  description: 'Broken links: wikilinks pointing to non-existent pages (auto-deleted,
+    pending LLM fix to create missing pages)'
+  constraint: Avoid creating links to non-existent pages. If referencing a new entity,
+    create the page simultaneously
+  status: open
+  count: 2
+  samples:
+  - name: Nuclear_Safety_Act_Amendment_Bill_2206769 → [[rollcalls/Roll_Call_1318]]
+    fixed: true
+  - name: Plenary_Minutes_T52677 → [[rollcalls/Roll_Call_1318]]
+    fixed: true
+  discovered_at: '2026-10-27'
+  last_seen: '2026-10-27'
+  pass_count: 0
+  brief: true
+  needs_llm_fix: true
+- id: E03
+  category: type_path_mismatch
+  description: 'Type-path mismatch: frontmatter type field doesn''t match directory
+    name'
+  constraint: Each page's frontmatter `type` field must match its directory name exactly
+  status: closed
+  count: 1
+  samples:
+  - name: 'rollcalls/Roll_Call_1318: type=''rollcall'' but in rollcalls/ dir'
+    fixed: false
+  discovered_at: '2026-10-27'
+  last_seen: '2026-10-27'
+  pass_count: 2
+  closed_at: '2026-10-27'

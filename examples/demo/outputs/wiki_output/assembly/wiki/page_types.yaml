@@ -1,0 +1,24 @@
+page_types:
+  bills:
+    description: bills — Legislative proposals and bills, including their status,
+      rationale, contents, and processing history.
+    auto_created: true
+  members:
+    description: members — Biographical and institutional profiles of elected legislators.
+    auto_created: true
+  minutes:
+    description: minutes — Official records of plenary or committee meetings, including
+      agendas and proceedings.
+    auto_created: true
+  rollcalls:
+    description: rollcalls — Recorded votes on legislative items, including totals
+      and member-level voting lists.
+    auto_created: true
+  sources:
+    description: sources — Primary documents and source materials referenced by the
+      corpus.
+    auto_created: true
+  syntheses:
+    description: syntheses — Analytical or summary pages that combine information
+      across multiple records.
+    auto_created: true

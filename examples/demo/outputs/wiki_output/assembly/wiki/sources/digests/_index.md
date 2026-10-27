@@ -1,0 +1,47 @@
+# Digest Index
+
+- [[2024-12-20-법안-2206761-(13)-디지털포용법안(대안)(과학기술정보방송통신위원장)]] — Bill 2206761: Digital Inclusion Act Alternative (1/3) #bill #Digital Inclusion Act #legislative-history
+- [[2024-12-20-법안-2206761-(23)-디지털포용법안(대안)(과학기술정보방송통신위원장)]] — Bill 2206761: Digital Inclusion Act Alternative (2/3) #bill #digital-inclusion #policy
+- [[2024-12-20-법안-2206761-(33)-디지털포용법안(대안)(과학기술정보방송통신위원장)]] — Bill 2206761: Digital Inclusion Act Alternative (3/3) #bill #roll-call #minutes
+- [[2026-10-27-member-oh-saehee]] — Oh Saehee Member Profile #member #profile #National Assembly
+- [[2026-10-27-member-park-choongkwon]] — Park Choongkwon Member Profile #member #profile #National Assembly
+- [[2026-10-27-member-park-sanghyuk]] — Park Sanghyuk Member Profile #member #profile #National Assembly
+- [[법안-2206765-(13)-우주개발-진흥법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206765: Space Development Promotion Act Amendment (Alternative) #bill #South Korea #22nd National Assembly
+- [[법안-2206765-(23)-우주개발-진흥법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206765: Space Development Promotion Act Amendment (Alternative), Member Votes #bill #roll-call #member votes
+- [[법안-2206765-(33)-우주개발-진흥법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206765: Space Development Promotion Act Amendment (Alternative), Rationale and Links #bill #space development #legislation
+- [[법안-2206769-(13)-원자력안전법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206769: Nuclear Safety Act Amendment Bill (Alternative), Part 1 #Bill 2206769 #Nuclear Safety Act #bill status
+- [[법안-2206769-(23)-원자력안전법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206769: Nuclear Safety Act Amendment Bill (Alternative), Part 2 #Bill 2206769 #Nuclear Safety Act #roll-call vote
+- [[법안-2206769-(33)-원자력안전법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206769: Nuclear Safety Act Amendment Bill (Alternative), Part 3 #Bill 2206769 #Nuclear Safety Act #legislative purpose
+- [[법안-2206772-(13)-인공지능-발전과-신뢰-기반-조성-등에-관한-기본법안(대안)(과학기술정보방송통신위]] — Bill 2206772: Artificial Intelligence Basic Act — Bill Record and Legislative History #bill #artificial intelligence #National Assembly
+- [[법안-2206772-(23)-인공지능-발전과-신뢰-기반-조성-등에-관한-기본법안(대안)(과학기술정보방송통신위]] — Bill 2206772: Member-Level Plenary Vote #bill #artificial intelligence #roll call
+- [[법안-2206772-(33)-인공지능-발전과-신뢰-기반-조성-등에-관한-기본법안(대안)(과학기술정보방송통신위]] — Bill 2206772: Purpose and Main Provisions #bill #artificial intelligence #legislation
+- [[법안-2206775-(13)-전기통신사업법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206775: Telecommunications Business Act Amendment Bill (1/3) #bill #Telecommunications Business Act #plenary vote
+- [[법안-2206775-(23)-전기통신사업법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206775: Telecommunications Business Act Amendment Bill (2/3) #bill #roll-call #member votes
+- [[법안-2206775-(33)-전기통신사업법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Bill 2206775: Telecommunications Business Act Amendment Bill (3/3) #bill #Telecommunications Business Act #mobile telecommunications
+- [[의원-2s73768v-이훈기(lee-hoonki)]] — Member 2S73768V: Lee Hoonki #member #legislator #22nd-National-Assembly
+- [[의원-6vc83722-김현정(kim-hyunjung)]] — Member 6VC83722: Kim Hyunjung #member #legislator #22nd-National-Assembly
+- [[의원-7bm2933y-김영호(kim-youngho)]] — Member 7BM2933Y: Kim Youngho #member #legislator #22nd-National-Assembly
+- [[의원-7yl9580g-김현(kim-hyun)]] — Kim Hyun — Member Profile #member #legislator #South Korea
+- [[의원-80c5885z-서왕진(seo-wangjin)]] — Seo Wangjin — Member Profile #member #legislator #South Korea
+- [[의원-b7d7534l-김영배(kim-youngbae)]] — Kim Youngbae — Member Profile #member #legislator #South Korea
+- [[의원-il74008m-박성준(park-sungjoon)]] — Park Sungjoon — Member Profile #member #biography #South Korea
+- [[의원-k5f2023j-이학영(lee-hackyoung)]] — Lee Hackyoung — Member Profile #member #biography #South Korea
+- [[의원-lt72093s-정일영(chung-ilyoung)]] — Chung Ilyoung — Member Profile #member #biography #South Korea
+- [[의원-nb64509z-김용만(kim-yongman)]] — Member NB64509Z Kim Yongman #member #National Assembly #Democratic Party of Korea
+- [[의원-nub4941z-김한규(kim-hankyu)]] — Member NUB4941Z Kim Hankyu #member #National Assembly #Democratic Party of Korea
+- [[의원-p7u7800z-서지영(seo-jiyoung)]] — Member P7U7800Z Seo Jiyoung #member #National Assembly #People Power Party
+- [[의원-ros6754l-이달희(lee-dalhee)]] — Lee Dalhee Member Profile #member #legislator #profile
+- [[의원-t2t8225e-강경숙(kang-kyungsook)]] — Kang Kyungsook Member Profile #member #legislator #profile
+- [[의원-tjw93720-전용기(jeon-yonggi)]] — Jeon Yonggi Member Profile #member #legislator #profile
+- [[의원-wcd5518s-고민정(ko-minjung)]] — Ko Minjung Member Record #member #National Assembly #Democratic Party of Korea
+- [[의원-wjg74792-최수진(choi-soojin)]] — Choi Soojin Member Record #member #National Assembly #People Power Party
+- [[의원-wjl30106-조정훈(cho-junghun)]] — Cho Junghun Member Record #member #National Assembly #People Power Party
+- [[의원-xbt9550q-우원식(woo-wonshik)]] — Member XBT9550Q Woo Wonsik #member #Woo Wonsik #National Assembly Speaker
+- [[의원-zkb18611-조인철(cho-incheul)]] — Member ZKB18611 Cho Incheul #member #Cho Incheul #Democratic Party of Korea
+- [[표결-1316-의안번호-2206775-전기통신사업법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Roll Call 1316: Bill 2206775 Telecommunications Business Act Amendment #roll-call #Telecommunications Business Act #plenary vote
+- [[표결-1317-의안번호-2206772-인공지능-발전과-신뢰-기반-조성-등에-관한-기본법안(대안)(과학기술정보]] — Roll Call 1317: Bill 2206772 Artificial Intelligence Basic Act #roll-call #artificial intelligence #plenary vote
+- [[표결-1318-의안번호-2206769-원자력안전법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Roll Call 1318: Nuclear Safety Act Amendment Bill #roll call #National Assembly #Nuclear Safety Act
+- [[표결-1319-의안번호-2206765-우주개발-진흥법-일부개정법률안(대안)(과학기술정보방송통신위원장)]] — Roll Call 1319: Space Development Promotion Act Amendment Bill #roll call #National Assembly #space development
+- [[표결-1320-의안번호-2206761-디지털포용법안(대안)(과학기술정보방송통신위원장)]] — Roll Call 1320: Digital Inclusion Act Alternative #roll call #National Assembly #digital inclusion
+- [[회의록-t52677-제22대국회-제420회-(임시회)-제1차-국회본회의]] — Plenary Minutes T52677: 420th National Assembly, First Sitting #minutes #plenary #22nd National Assembly
+- [[회의록-t52678-제22대국회-제420회-(임시회)-제2차-국회본회의]] — Minutes T52678: 420th Assembly, 1st Extraordinary Session, 2nd Plenary Meeting #minutes #plenary meeting #22nd National Assembly

@@ -130,7 +130,7 @@ def main():
     )
     parser.add_argument(
         "--dataset", "-d",
-        choices=["hotpotqa", "musique", "2wikimhqa"],
+        choices=["hotpotqa", "musique", "2wikimhqa", "assembly"],  # [국회 시연] assembly 추가
         help="Dataset to process. Use --all to run all three.",
     )
     parser.add_argument("--all", action="store_true",
@@ -153,7 +153,9 @@ def main():
 
     # Cross-flag fix-up: --only-X takes precedence and disables sibling stages.
     only_flags = [args.only_download, args.only_preprocess, args.only_ingest]
-    args.only = None
+    # [국회 시연] 원본 버그 수정: 원본은 args.only 를 None 으로만 두어 --only-* 를 줘도 모든 단계가 실행됐다.
+    args.only = ("download" if args.only_download else "preprocess" if args.only_preprocess
+                 else "ingest" if args.only_ingest else None)
     if sum(only_flags) > 1:
         parser.error("Use at most one of --only-download / --only-preprocess / --only-ingest.")
 

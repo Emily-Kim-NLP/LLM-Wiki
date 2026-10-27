@@ -25,7 +25,9 @@ import sys
 from pathlib import Path
 from collections import defaultdict
 
-BASE_DIR = Path(__file__).parent
+# [국회 시연] 원본 버그 수정: 원본은 llm_wiki_bench/raw 에 쓰는데 bench_config(ingest)는 저장소 루트 raw/ 를 읽어
+# run.py 전체 실행이 이어지지 않았다. 저장소 루트를 기준으로 맞춘다.
+BASE_DIR = Path(__file__).parent.parent
 DATASETS_DIR = BASE_DIR / "datasets"
 RAW_DIR = BASE_DIR / "raw"
 DATA_DIR = BASE_DIR / "data"
@@ -306,7 +308,15 @@ dataset: 2wikimhqa
     }
 
 
+# [국회 시연] 국회 CSV 처리기 (별도 파일 preprocess_assembly.py)
+from preprocess_assembly import process_assembly  # noqa: E402
+
 DATASET_PROCESSORS = {
+    # [국회 시연] data/bills.csv 를 입력으로 같은 폴더의 CSV 4개를 읽는다 (절대경로라 DATASETS_DIR 와 무관)
+    "assembly": {
+        "processor": process_assembly,
+        "input_file": str(DATA_DIR / "bills.csv"),
+    },
     "hotpotqa": {
         "processor": process_hotpotqa,
         "input_file": "hotpotqa/hotpot_dev_distractor_v1.json",

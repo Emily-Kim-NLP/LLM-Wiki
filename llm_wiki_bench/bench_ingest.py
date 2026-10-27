@@ -657,6 +657,17 @@ Content:
 {content}
 """
 
+    # [국회 시연] 원본은 Error Book 규칙을 단건 프롬프트(build_ingest_prompt)에만 넣고, run.py 기본값인
+    # 배치 경로에는 넣지 않았다. 논문 3.3절 "Inject: 열린 규칙을 Step 2 프롬프트에 붙인다" 대로 배치에도 넣는다.
+    error_constraints = ""
+    if _ENABLE_ERROR_BOOK:
+        try:
+            error_constraints = error_book.get_active_constraints()
+            if error_constraints:
+                print(f"  📔 Error Book 규칙 주입: {error_constraints.count(chr(10) + '- [')}개 항목")
+        except Exception:
+            pass
+
     system = f"""You are a knowledge base maintenance expert. This knowledge base is designed for AI retrieval, not for human reading.
 
 Core principles:
@@ -695,6 +706,7 @@ Note: Only write pages into directories listed above.
 ## Source Paragraphs to Process (total: {len(articles)})
 {articles_text}
 
+{error_constraints}
 ## Task
 
 1. **Analyze** all source paragraphs: identify key facts, entities/concepts, pages to create/update

@@ -25,6 +25,26 @@ def _api_base() -> str:
     return os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
 
 
+# [국회 시연] 추론 모델 지원 (llm-wiki-lecture docs/CHANGES_KO.md 2절과 같은 규칙).
+# gpt-6-luna 등은 max_tokens 를 거부하고(400) max_completion_tokens·reasoning_effort 를 받는다.
+# 도구 호출은 reasoning_effort="none" (GPT-6 Luna/Sol 은 none 에서만 function calling).
+_REASONING_MODEL_RE = re.compile(r"^(gpt-5|gpt-6|o\d)", re.IGNORECASE)
+
+
+def _apply_model_params(payload: dict, temperature, max_tokens: int, effort: str | None = None) -> None:
+    if _REASONING_MODEL_RE.match(payload["model"] or ""):
+        effort = effort or os.environ.get("LLM_REASONING_EFFORT", "low")
+        payload["reasoning_effort"] = effort
+        # 추론 토큰도 이 예산을 쓰므로, 비추론 모델용 작은 값(예: 256)은 4096 으로 올린다
+        payload["max_completion_tokens"] = max_tokens if effort == "none" else max(max_tokens, 4096)
+        if effort == "none" and temperature is not None:
+            payload["temperature"] = temperature
+    else:
+        if temperature is not None:
+            payload["temperature"] = temperature
+        payload["max_tokens"] = max_tokens
+
+
 def _headers() -> dict:
     api_key = os.environ.get("OPENAI_API_KEY", "")
     return {
@@ -56,22 +76,23 @@ def call_llm(
     use_model = model or config.LLM_MODEL
     url = f"{_api_base()}/chat/completions"
 
-    payload: dict = {
-        "model": use_model,
-        "messages": messages,
-        "temperature": temperature if temperature is not None else config.LLM_TEMPERATURE,
-        "max_tokens": max_tokens if max_tokens is not None else config.LLM_MAX_TOKENS,
-    }
+    payload: dict = {"model": use_model, "messages": messages}
+    _apply_model_params(  # [국회 시연] 모델 종류에 맞는 파라미터
+        payload,
+        temperature if temperature is not None else config.LLM_TEMPERATURE,
+        max_tokens if max_tokens is not None else config.LLM_MAX_TOKENS,
+    )
     if expect_json:
         payload["response_format"] = {"type": "json_object"}
-    if enable_thinking:
+    # [국회 시연] chat_template_kwargs 는 vLLM 전용. OpenAI 는 모르는 필드를 거부하므로 LLM_ENABLE_THINKING=1 일 때만
+    if enable_thinking and os.environ.get("LLM_ENABLE_THINKING", "0") == "1":
         # Pass-through fields for backends that support reasoning / thinking mode.
         payload["chat_template_kwargs"] = {"enable_thinking": True}
 
     _llm_logger.info(
         "LLM call | model=%s | sys=%d chars | user=%d chars | temp=%s | max_tokens=%s",
         use_model, len(system_prompt), len(user_prompt),
-        payload["temperature"], payload["max_tokens"],
+        payload.get("temperature"), payload.get("max_tokens") or payload.get("max_completion_tokens"),
     )
 
     MAX_RETRIES = 5
@@ -185,6 +206,7 @@ def call_llm_with_tools(
         "tools": tools,
         "tool_choice": "auto",
     }
+    _apply_model_params(payload, payload.pop("temperature"), payload.pop("max_tokens"), effort="none")  # [국회 시연]
 
     MAX_RETRIES = 5
     last_resp = None

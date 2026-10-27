@@ -183,7 +183,7 @@ def main() -> None:
         description="Run Retrieval-as-Reasoning QA over a compiled LLM-Wiki."
     )
     parser.add_argument("--dataset", "-d", required=True,
-                        choices=["hotpotqa", "musique", "2wikimhqa"])
+                        choices=["hotpotqa", "musique", "2wikimhqa", "assembly"])  # [국회 시연] assembly 추가
     parser.add_argument("--limit", "-n", type=int, default=None,
                         help="Process only the first N QA pairs.")
     parser.add_argument("--t-max", type=int, default=15,

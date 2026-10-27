@@ -19,3 +19,12 @@ logs/
 .DS_Store
 .vscode/
 .idea/
+
+# 시연: API 키 파일
+.env
+# 시연: 실행 결과 예시는 저장소에 남긴다
+!examples/demo/outputs/data/
+!examples/demo/outputs/raw/
+!examples/demo/outputs/results/
+!examples/demo/outputs/wiki_output/
+.quartz/

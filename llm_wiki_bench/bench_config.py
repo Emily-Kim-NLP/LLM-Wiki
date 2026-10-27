@@ -235,6 +235,8 @@ def register_page_type(name: str, description: str, auto_created: bool = True) -
 def apply_dir_changes(changes: list[dict]) -> None:
     page_types = get_page_types()
     for change in changes:
+        if not isinstance(change, dict):  # [국회 시연] LLM 이 문자열 목록을 내면 원본은 여기서 전체 실행이 멈췄다
+            continue
         action = change.get("action", "")
         to_dir = change.get("to", "")
         desc   = change.get("description", "")

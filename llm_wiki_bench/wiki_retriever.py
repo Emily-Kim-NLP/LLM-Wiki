@@ -73,7 +73,7 @@ class WikiRetriever:
     _BM25_WEIGHT = 5.0   # scale factor on the BM25 score before adding
     _BM25_CAP = 60.0     # cap on the BM25 contribution (< exact-name score 100)
 
-    _TOKEN_RE = re.compile(r"[a-z0-9]+")
+    _TOKEN_RE = re.compile(r"[a-z0-9]+|[가-힣]+")  # [국회 시연] 한글 추가
 
     def __init__(self, wiki_dir: Path):
         self.wiki_dir = Path(wiki_dir)
@@ -173,7 +173,15 @@ class WikiRetriever:
     @classmethod
     def _tokenize(cls, text: str) -> list[str]:
         """ASCII tokenizer (lowercase, ≥2 chars). Suitable for English corpora."""
-        return [m.group() for m in cls._TOKEN_RE.finditer(text.lower()) if len(m.group()) >= 2]
+        # [국회 시연] 한글은 2글자 단위(bigram)로 색인 (llm-wiki-lecture textutil.search_tokens 와 같은 규칙)
+        toks = []
+        for m in cls._TOKEN_RE.finditer(text.lower()):
+            t = m.group()
+            if "가" <= t[0] <= "힣":
+                toks.extend(t[i:i + 2] for i in range(len(t) - 1))
+            elif len(t) >= 2:
+                toks.append(t)
+        return toks
 
     def _build_bm25(self) -> None:
         inv: dict[str, dict[str, int]] = {}
@@ -311,6 +319,10 @@ class WikiRetriever:
         out: list[dict] = []
         for raw in paths:
             p = (raw or "").strip()
+            # [국회 시연] 페이지 안 링크([[dir/page]])는 .md 가 없다. 원본은 정확한 .md 경로만 찾아 "not found" 가 났다
+            p = p.strip("[]")
+            if not p.endswith(".md") and f"{p}.md" in self.pages:
+                p = f"{p}.md"
             if p == "/":
                 out.append({"path": "/", "type": "root", "dirs": sorted(self.dir_indexes.keys())})
                 continue
